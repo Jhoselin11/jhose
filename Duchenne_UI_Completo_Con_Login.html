@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Duchenne Intelligence™</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+  <!-- Encabezado -->
+  <section class="text-center py-10 bg-blue-100">
+    <h1 class="text-4xl font-bold text-blue-800">Duchenne Intelligence™</h1>
+    <p class="text-gray-700 mt-2 max-w-2xl mx-auto">Plataforma integrada para análisis genético y simulaciones musculoesqueléticas personalizadas para pacientes con distrofia muscular de Duchenne.</p>
+  </section>
+
+  <!-- Módulos -->
+  <section class="max-w-6xl mx-auto px-4 py-10">
+    <h2 class="text-2xl font-bold text-blue-900 mb-6">Vista Previa de Módulos</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <!-- Módulo Bioinformática -->
+      <div onclick="togglePanel('bioinfo')" class="cursor-pointer bg-white shadow hover:shadow-md transition rounded overflow-hidden">
+        <img src="https://www.mayo.edu/-/media/kcms/gbs/research/images/2019/02/06/15/18/genetics-bioinformatics-shu-571040611-8col.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-semibold text-blue-700">Bioinformática</h3>
+          <p class="text-gray-600 text-sm">Consulta genética y predicciones farmacogenéticas.</p>
+        </div>
+      </div>
+
+      <!-- Módulo Biomecánica -->
+      <div onclick="togglePanel('biomeca')" class="cursor-pointer bg-white shadow hover:shadow-md transition rounded overflow-hidden">
+        <img src="https://kinemez.com/wp-content/uploads/2020/09/img-1.jpeg.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-semibold text-blue-700">Biomecánica</h3>
+          <p class="text-gray-600 text-sm">Simulaciones musculares y análisis de fisioterapia.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Panel Bioinformática -->
+  <section id="bioinfo" class="hidden max-w-5xl mx-auto bg-white p-6 rounded shadow mb-8 space-y-6">
+    <h2 class="text-2xl font-bold text-blue-800">Simulador Genético Farmacogenético</h2>
+    <p class="text-gray-700">Este sistema te permite analizar variantes genéticas (rsID) y su posible impacto en el tratamiento de DMD.</p>
+    <div>
+      <label class="block mb-2 font-semibold text-gray-600">Ingresa un rsID:</label>
+      <input type="text" placeholder="rs1801133" class="border px-4 py-2 rounded w-64" value="rs1801133" disabled />
+      <button class="ml-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded">Analizar</button>
+    </div>
+
+    <!-- Resultados simulados -->
+    <div class="bg-blue-50 p-4 rounded shadow space-y-4 mt-4">
+      <div>
+        <h3 class="text-lg font-semibold text-blue-800">Resultado:</h3>
+        <ul class="text-gray-700 ml-6 list-disc">
+          <li><b>Rsid:</b> rs1801133</li>
+          <li><b>Gene:</b> MTHFR</li>
+          <li><b>Consequence:</b> missense_variant</li>
+          <li><b>Amino_acids:</b> A/V</li>
+          <li><b>Codons:</b> gCc/gTc</li>
+          <li><b>Sift:</b> deleterious (0)</li>
+          <li><b>Polyphen:</b> probably_damaging (0.943)</li>
+          <li><b>Transcript_id:</b> ENST00000376486</li>
+        </ul>
+      </div>
+      <div class="bg-green-50 p-4 rounded">
+        <h3 class="font-semibold text-green-800">Simulación biológica:</h3>
+        <p>Se comparan los codones antes y después de la mutación:</p>
+        <p><b>Original:</b> gCc → A</p>
+        <p><b>Mutado:</b> gTc → V</p>
+        <p class="text-green-700 mt-2 font-medium">✅ Reporte HTML generado exitosamente</p>
+      </div>
+      <div class="bg-yellow-50 p-4 rounded">
+        <h3 class="font-semibold text-yellow-800">Simulación farmacocinética (PK/PD):</h3>
+        <ul class="list-disc ml-6">
+          <li><b>rs776746</b> (CYP3A5 – prednisona): GG: No expresor, AG: Intermedio, AA: Expresor</li>
+          <li><b>rs1045642</b> (ABCB1 – deflazacort): CC: menor expulsión, TT: mayor expulsión</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Panel Biomecánica -->
+  <section id="biomeca" class="hidden max-w-5xl mx-auto bg-white p-6 rounded shadow mb-8 space-y-8">
+    <h2 class="text-2xl font-bold text-blue-800">Simulador Clínico de Biomecánica</h2>
+    <div>
+      <label class="block text-gray-600 mb-2">Ingresa una fuerza estimada en Newtons:</label>
+      <input id="fuerza" type="number" placeholder="Ej. 20" class="border px-4 py-2 rounded w-40" />
+      <button onclick="simularFuerza()" class="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-semibold">Simular</button>
+    </div>
+
+    <div>
+      <h3 class="text-xl font-semibold text-blue-700 mt-6 mb-2">Visualización de Von Mises (ANSYS)</h3>
+      <img src="https://i.imgur.com/uzsmi5u.png" alt="Von Mises Stress" class="w-full max-w-md mx-auto rounded shadow">
+      <p class="text-center mt-2 text-gray-600">Distribución simulada de esfuerzo muscular</p>
+      <p id="resultadoVonMises" class="text-center font-semibold text-blue-600 mt-1">Esfuerzo estimado: - Pa</p>
+    </div>
+
+    <div>
+      <h3 class="text-xl font-semibold text-blue-700 mt-6 mb-2">Simulación Funcional en OpenSim</h3>
+      <img src="https://i.imgur.com/Rs0X6xK.png" alt="Simulación OpenSim" class="w-full max-w-md mx-auto rounded shadow">
+      <p class="text-center mt-2 text-gray-600">Modelo musculoesquelético simulado</p>
+    </div>
+
+    <div>
+      <h3 class="text-xl font-semibold text-blue-700 mt-6 mb-2">Recomendaciones Terapéuticas</h3>
+      <p class="text-gray-700 mb-2">Algunas recomendaciones se basan en zonas con mayor esfuerzo y se ilustran en el cuadro adjunto:</p>
+      <img src="https://i.imgur.com/kbfS1vx.png" alt="Recomendaciones terapéuticas" class="w-full rounded shadow">
+    </div>
+  </section>
+
+  <script>
+    function togglePanel(id) {
+      const panels = ['bioinfo', 'biomeca'];
+      panels.forEach(p => document.getElementById(p).classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function simularFuerza() {
+      const fuerza = document.getElementById('fuerza').value;
+      const esfuerzo = fuerza ? (parseFloat(fuerza) * 5000).toFixed(2) : '-';
+      document.getElementById('resultadoVonMises').innerText = `Esfuerzo estimado: ${esfuerzo} Pa`;
+    }
+  </script>
+
+</body>
+</html>
+
+
+  <!-- Sección: Misión, Visión, Quiénes Somos, Contacto -->
+  <section class="bg-white py-12 px-6 md:px-16 text-center space-y-12 shadow-md">
+    <div>
+      <h2 class="text-2xl font-bold text-blue-800 mb-2">Misión</h2>
+      <p class="text-gray-700">Brindar herramientas clínicas basadas en simulación biomédica y genética para optimizar el tratamiento personalizado en pacientes con distrofia muscular de Duchenne (DMD).</p>
+    </div>
+    <div>
+      <h2 class="text-2xl font-bold text-blue-800 mb-2">Visión</h2>
+      <p class="text-gray-700">Ser la plataforma líder en medicina personalizada para enfermedades neuromusculares, integrando tecnologías accesibles, confiables y científicamente validadas.</p>
+    </div>
+    <div>
+      <h2 class="text-2xl font-bold text-blue-800 mb-2">¿Quiénes Somos?</h2>
+      <p class="text-gray-700">Somos un equipo multidisciplinario de médicos, ingenieros biomédicos e investigadores apasionados por mejorar la calidad de vida de los pacientes con DMD mediante herramientas clínicas inteligentes.</p>
+    </div>
+    <div>
+      <h2 class="text-2xl font-bold text-blue-800 mb-2">Contacto</h2>
+      <p class="text-gray-700">¿Tienes preguntas o deseas colaborar? Escríbenos a <a href="mailto:duchenne.intelligence@medplatform.org" class="text-blue-600 underline">duchenne.intelligence@medplatform.org</a></p>
+    </div>
+  </section>
+
+  <!-- Sección: Inicio de Sesión -->
+  <section class="bg-gray-100 py-12 px-6 md:px-16 text-center shadow-inner">
+    <div class="max-w-xl mx-auto bg-white rounded-lg p-8 shadow-md">
+      <h2 class="text-2xl font-bold text-blue-800 mb-6">Inicio de Sesión para Médicos</h2>
+      <form class="space-y-4">
+        <input type="email" placeholder="Correo electrónico" class="w-full px-4 py-2 border rounded" required>
+        <input type="password" placeholder="Contraseña" class="w-full px-4 py-2 border rounded" required>
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-semibold">Iniciar Sesión</button>
+      </form>
+    </div>
+  </section>
